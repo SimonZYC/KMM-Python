@@ -1,7 +1,7 @@
 # KMM-Python
 COMP 5331 group project
 
-Reference: [Paper](Paper: https://dl.acm.org/citation.cfm?id=3330846) ,  [Matlab code](https://github.com/CHLWR/KDD2019_K-Multiple-Means)
+Reference: [Paper](https://dl.acm.org/citation.cfm?id=3330846) ,  [Matlab code](https://github.com/CHLWR/KDD2019_K-Multiple-Means)
 
 
 
