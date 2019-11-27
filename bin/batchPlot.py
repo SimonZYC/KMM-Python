@@ -37,10 +37,10 @@ def loadPoints(filename):
     return np.array(data)
 
 
-# execNames =["k_means","kernel_k_means","spectral",'KMM']  
-execNames=['KMM']
-# datasets=['birch','overlap','shape','unbalance']
-datasets = ['happyface']
+execNames =["other/k_means","other/kernel_k_means","other/spectral",'kmm/KMM']  
+# execNames=['KMM']
+datasets=['birch','overlap','shape','unbalance']
+# datasets = ['happyface']
 
 setFilePath = str(ROOTDIR / "data")
 desFilePath = str(ROOTDIR / "EXP")
@@ -83,7 +83,8 @@ for dsets in datasets:
             plt.scatter(X[:, 0], X[:, 1], color=colors[Y], s=6, alpha=0.6)
             plt.title(execName)
 
-
+        if not os.path.exists(os.path.join(desFilePath,'images')):
+            os.makedirs(os.path.join(desFilePath,'images'))
         savePath=os.path.join(desFilePath,'images',file+'.png')
         print(savePath)
         plt.savefig(savePath)

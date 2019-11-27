@@ -6,8 +6,8 @@ from pathlib import Path
 
 ROOTDIR = Path(__file__).resolve().parents[1]
 
-# execNames =["other/k_means","other/kernel_k_means","other/spectral",'kmm/KMM']  
-execNames =['kmm/KMM']  
+execNames =["other/k_means","other/kernel_k_means","other/spectral",'kmm/KMM']  
+# execNames =['kmm/KMM']  
 datasets=['brich','dim','overlap','shape','unbalance']
     
 

@@ -1,7 +1,7 @@
 '''
 @Author: your name
 @Date: 2019-11-24 15:28:25
-@LastEditTime: 2019-11-27 11:22:32
+@LastEditTime: 2019-11-27 22:51:45
 @LastEditors: Please set LastEditors
 @Description: In User Settings Edit
 @FilePath: /KMM-Python/bin/test_kmm.py
@@ -15,8 +15,12 @@ sys.path.append(str(ROOTDIR / 'kmm'))
 
 from KMM import kmm
 import argparse
-import numpy as np
 import math
+from itertools import cycle, islice
+from functools import partial
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn
 
 if __name__ == '__main__':
     # print(str(sys.argv))
@@ -37,10 +41,10 @@ if __name__ == '__main__':
     m = math.floor(math.sqrt(n*c))
     k = 5
     laKMM,_,_,A,_,Ah,laKMMh = kmm(X.T, c, m,k)
-    np.savetxt('laKMM.txt', laKMM, fmt='%d')
+    # np.savetxt('laKMM.txt', laKMM, fmt='%d')
 
-    
-    
-    # laKMM,_,_,A,_,Ah,laKMMh = kmm(X.T, c, m,k)
+    colors = np.array(list(islice(cycle(seaborn.color_palette('hls', int(max(laKMM) + 1))), int(max(laKMM) + 1))))
 
-    # print(args.i)
+    plt.figure()
+    plt.scatter(np.asarray(X[:, 0]), np.asarray(X[:, 1]), color=colors[laKMM.astype(int)], s=6, alpha=0.6)
+    plt.show()
