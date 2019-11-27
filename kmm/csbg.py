@@ -118,11 +118,11 @@ def CSBG(X, c, A, k = -10, alpha = -1000, llambda = -1000):
     Z, Alpha, distX, id1, _ =  ConstructA_NP(X, A,k) # A is sparse
     ZT, AlphaT, distXT, idT, _ =  ConstructA_NP(A,X,k)
     # f1 = open('Z.txt', 'a')
-    # np.savetxt(f1, Z.todense())
+    # np.savetxt(f1, Z.todense(), fmt='%.4f', delimiter=',')
     # f1.write('\n')
     # f1.close()
     # f2 = open('ZT.txt', 'a')
-    # np.savetxt(f2, ZT.todense())
+    # np.savetxt(f2, ZT.todense(), fmt='%.4f', delimiter=',')
     # f2.write('\n')
     # f2.close()
     # print('Z: ' + str(Z.shape))
@@ -149,10 +149,18 @@ def CSBG(X, c, A, k = -10, alpha = -1000, llambda = -1000):
     # print('Z0: ' + str(Z0.shape))
     # np.savetxt('Z0.txt', Z0.todense())
     BiGraph, U, V, evc, _, _ = svd2uv(Z0, c)
-    # np.savetxt('BiGraph.txt', BiGraph)
-    # np.savetxt('U.txt', U)
-    # np.savetxt('V.txt', V)
-    # np.savetxt('evc.txt', evc)
+    # f = open('BiGraph.txt', 'a')
+    # np.savetxt(f, BiGraph, fmt = '%.4f', delimiter=',')
+    # f.close()
+    # f = open('U.txt', 'a')
+    # np.savetxt(f, U, fmt = '%.4f', delimiter=',')
+    # f.close()
+    # f = open('V.txt', 'a')
+    # np.savetxt(f, V, fmt = '%.4f', delimiter=',')
+    # f.close()
+    # f = open('evc.txt', 'a')
+    # np.savetxt(f, evc, fmt = '%.4f', delimiter=',')
+    # f.close()
 
     if np.sum(evc.reshape(-1, order = 'F')[:c]) > c*(1-zr):
         sys.exit('The original graph has more than {} connected component£¬ Please set k larger'.format(c))
@@ -165,13 +173,19 @@ def CSBG(X, c, A, k = -10, alpha = -1000, llambda = -1000):
     dxiT = np.zeros((m,k))
     for i in range(m):
         dxiT[i,:] = distXT[i,idT[i,:].astype(int)]
-    # np.savetxt('dxi.txt', dxi)
-    # np.savetxt('dxiT.txt', dxiT)
+    # f = open('dxi.txt', 'a')
+    # np.savetxt(f, dxi, fmt = '%.4f', delimiter=',')
+    # f.close()
+    # f = open('dxiT.txt', 'a')
+    # np.savetxt(f, dxiT, fmt = '%.4f', delimiter=',')
+    # f.close()
 
     OBJ=np.array([])
     Ater=0
     # print('U: ' + str(type(U)))
     # print('V: ' + str(type(V)))
+    U = np.matrix(U)
+    V = np.matrix(V)
     for iter1 in range(NITER):
         # print('D1: ' + str(type(D1)))
         # print('D2: ' + str(type(D2)))

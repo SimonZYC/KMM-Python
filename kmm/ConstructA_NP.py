@@ -1,3 +1,11 @@
+'''
+@Author: your name
+@Date: 2019-11-22 23:50:08
+@LastEditTime: 2019-11-24 23:17:13
+@LastEditors: Please set LastEditors
+@Description: In User Settings Edit
+@FilePath: /KMM-Python/kmm/ConstructA_NP.py
+'''
 import numpy as np
 from sqdist import sqdist
 import scipy.sparse as ss
@@ -38,8 +46,10 @@ def ConstructA_NP(A, B, k = 5, isSparse = 1):
 
     else:
         Dis = sqdist(A, B)
-        # print("Dis: "+ str(Dis.shape))
-        # np.savetxt('Dis.txt', Dis)
+        # print("sq Dis: "+ str(Dis.shape))
+        # f = open('Dis.txt', 'a')
+        # np.savetxt(f, Dis, fmt='%.4f', delimiter=',')
+        # f.close()
         distXt = Dis.copy()
         di = np.zeros([n,k+1])
         id1 = di.copy() 
@@ -56,11 +66,18 @@ def ConstructA_NP(A, B, k = 5, isSparse = 1):
     
     m = B.shape[1]
     id1 = np.delete(id1, -1, 1)
-    # np.savetxt('di.txt', di)
+    # f = open('di.txt', 'a')
+    # np.savetxt(f, di, fmt = '%.4f', delimiter=',')
+    # f.close()
+    # f = open('id1.txt', 'a')
+    # np.savetxt(f, id1, fmt = '%d', delimiter=',')
+    # f.close()
     Alpha = 0.5 * (k * di[:, k].astype(np.float64) - np.sum(di[:, range(k)], axis = 1).astype(np.float64))
     # np.savetxt('firstpart.txt', di[:, k])
     # np.savetxt('secondpart.txt', di[:, range(k)])
-    # np.savetxt('Alpha.txt', Alpha)
+    # f = open('Alpha.txt', 'a')
+    # np.savetxt(f, Alpha, fmt = '%.4f', delimiter=',')
+    # f.close()
     # print(di.shape)
     # print(k)
     # print(di[:, k].reshape(di.shape[0], 1).shape)
@@ -69,11 +86,19 @@ def ConstructA_NP(A, B, k = 5, isSparse = 1):
     # print((2 * Alpha + np.finfo(float).eps).reshape((-1)))
     tmp = (di[:, k].reshape(di.shape[0], 1) - di[:, range(k)]) / (2 * Alpha + np.finfo(float).eps).reshape((-1, 1))
     # print('tmp: '+ str(tmp.shape))
+
+    # f = open('tmp.txt', 'a')
+    # np.savetxt(f, tmp, fmt = '%.4f', delimiter=',')
+    # f.close()
+
     rr = np.tile(np.array(range(n)), (1,k)).reshape(-1)
     cc = id1.reshape(-1, order='F')
     Z = ss.csr_matrix((tmp.reshape(-1, order = 'F'), (rr,cc)), shape=(n,m))
 
     # print('Z: ' + str(Z.shape/))
+    # f = open('ZS.txt', 'a')
+    # np.savetxt(f, Z.todense(), fmt = '%.4f', delimiter=',')
+    # f.close()
 
     if not isSparse:
         Z = Z.todense()
